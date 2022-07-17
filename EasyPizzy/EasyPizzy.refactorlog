@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="dbc0a60c-7cd0-4f99-adb6-f07dc5328078" ChangeDateTime="07/16/2022 12:06:23">
+    <Property Name="ElementName" Value="[dbo].[ToppingsList].[UpdatedBu]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ToppingsList]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UpdatedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="84fba2db-60b2-4728-8662-59c22164e21d" ChangeDateTime="07/16/2022 12:13:29">
+    <Property Name="ElementName" Value="[dbo].[ToppingType].[Top]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ToppingType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ToppingTypeDescripion" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="87603e16-c431-4579-b06c-efed6801a093" ChangeDateTime="07/16/2022 12:14:50">
+    <Property Name="ElementName" Value="[dbo].[ToppingType].[UpdatedBu]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ToppingType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UpdatedBy" />
+  </Operation>
+</Operations>
