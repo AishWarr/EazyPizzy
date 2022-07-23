@@ -60,6 +60,7 @@
   <ItemGroup>
     <Build Include="ToppingsInventoryList.sql" />
     <Build Include="ToppingType.sql" />
+    <Build Include="Orders.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EasyPizzy.refactorlog" />
