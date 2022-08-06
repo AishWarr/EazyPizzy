@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace InventoryService.Models
 {
-    public partial class EasyPizzyDB_Context : DbContext
+    public class EasyPizzyDB_Context : DbContext
     {
         public EasyPizzyDB_Context()
         {
@@ -27,7 +27,7 @@ namespace InventoryService.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\aishs\\Source\\Repos\\AishWarr\\EazyPizzy\\EasyPizzyDB\\EP_DB.mdf;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=|DataDirectory|\\EasyPizzy.mdf;Integrated Security=True");
             }
         }
 
@@ -105,10 +105,7 @@ namespace InventoryService.Models
                     .HasForeignKey(d => d.ToppingTypeId)
                     .HasConstraintName("FK_ToppingsInventoryList_ToppingType");
             });
-
-            OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

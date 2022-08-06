@@ -3,21 +3,27 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-fetch-data',
+  styleUrls: ['./fetch-data.component.scss'],
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public inventoryItems: InventoryList[];
+  public isVeg: boolean = null;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
+      http.get<InventoryList[]>('http://localhost:65008/Inventory').subscribe(result => {
+      this.inventoryItems = result;
     }, error => console.error(error));
+  }
+
+  isVegg(a){
+    this.isVeg = a;
   }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface InventoryList {
+  id: number;
+  toppingName: string;
+  toppingTypeId: number;
+  isNonVeg: boolean;
 }

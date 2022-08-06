@@ -9,10 +9,10 @@ using InventoryService.Models;
 namespace ToppingInventoryService.Controllers
 {
     [ApiController]
-    [Route("[InventoryController]")]
+    [Route("[controller]")]
     public class InventoryController : ControllerBase
     {
-        private static readonly EasyPizzyDB_Context dB_Context; 
+        private readonly EasyPizzyDB_Context dB_Context; 
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -20,15 +20,24 @@ namespace ToppingInventoryService.Controllers
 
         private readonly ILogger<InventoryController> _logger;
 
-        public InventoryController(ILogger<InventoryController> logger)
+        public InventoryController(ILogger<InventoryController> logger, EasyPizzyDB_Context pizzyDB_Context)
         {
             _logger = logger;
+            dB_Context = pizzyDB_Context;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<ToppingsInvetoryList> Get()
         {
-            return dB_Context.ToppingsInvetoryLists.Where(x => x.IsAvailable == true);
+            try
+            {
+                var a = dB_Context.ToppingsInvetoryLists.Where(x => x.IsAvailable == true);
+                return a;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

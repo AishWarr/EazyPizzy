@@ -1,24 +1,50 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h3 id="tableLabel">Please choose your preference</h3>
 
-<p>This component demonstrates fetching data from the server.</p>
+<div style="display:flex; flex-direction: row">
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+  <table>
+    <tr style="cursor: pointer">
+      <td (click)="isVeg= true">
+        <div class="card" [ngClass]="isVeg == true? 'green' : 'grey'">
+          <img src="./../../assets/images/veg.png" style="width: 400px" alt="non">
+          <div class="container">
+            <h4><b>Veg Pizza</b></h4>
+            <p>Classic veggies and dairy proteins</p>
+          </div>
+        </div>
+      </td>
+      <td (click)="isVeg=false">
+        <div class="card" [ngClass]="isVeg == false? 'green' : 'grey'">
+          <img src="./../../assets/images/non.png" style="width: 390px;" alt="non">
+          <div class="container">
+            <h4><b>Non-Veg Pizza</b></h4>
+            <p>All that you can add!</p>
+          </div>
+        </div>
+      </td>
+      <td style="padding-left: 200px;" *ngIf="isVeg == true || isVeg == false">
+        <button style="height: 100px; width: 100px; border-radius:50px;">
+          Continue
+        </button>
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
-  </tbody>
-</table>
+  </table>
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="inventoryItems">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Temp. (C)</th>
+        <th>Temp. (F)</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let items of inventoryItems">
+        <td>{{ items.id }}</td>
+        <td>{{ items.toppingName }}</td>
+        <td>{{ items.toppingTypeId }}</td>
+        <td>{{ items.isNonVeg }}</td>
+      </tr>
+    </tbody>
+  </table>
