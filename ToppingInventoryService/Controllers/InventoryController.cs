@@ -28,7 +28,7 @@ namespace ToppingInventoryService.Controllers
 
         [HttpGet]
         public IEnumerable<ToppingsInvetoryList> Get()
-        {
+        { 
             try
             {
                 var a = dB_Context.ToppingsInvetoryLists.Where(x => x.IsAvailable == true);

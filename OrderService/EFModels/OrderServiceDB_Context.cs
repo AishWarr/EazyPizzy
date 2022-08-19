@@ -4,21 +4,22 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace OrderService.Models
+namespace OrderService.EFModels
 {
-    public partial class EasyPizzyDB_Context : DbContext
+    public partial class OrderServiceDB_Context : DbContext
     {
-        public EasyPizzyDB_Context()
+        public OrderServiceDB_Context()
         {
         }
 
-        public EasyPizzyDB_Context(DbContextOptions<EasyPizzyDB_Context> options)
+        public OrderServiceDB_Context(DbContextOptions<OrderServiceDB_Context> options)
             : base(options)
         {
         }
 
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Outlet> Outlets { get; set; }
+        public virtual DbSet<Pizza> Pizzas { get; set; }
         public virtual DbSet<ToppingType> ToppingTypes { get; set; }
         public virtual DbSet<ToppingsInvetoryList> ToppingsInvetoryLists { get; set; }
 
@@ -27,7 +28,7 @@ namespace OrderService.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\aishs\\Source\\Repos\\AishWarr\\EazyPizzy\\EasyPizzyDB\\EP_DB.mdf;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\AISHWAW\\source\\repos\\EazyPizzy\\OrderService\\EasyPizzy.mdf;Integrated Security=True");
             }
         }
 
@@ -35,17 +36,42 @@ namespace OrderService.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Order");
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
             modelBuilder.Entity<Outlet>(entity =>
             {
                 entity.ToTable("Outlet");
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.OutletAddress)
-                    .HasMaxLength(100)
+                    .HasMaxLength(80)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.OutletName)
-                    .HasMaxLength(60)
+                    .HasMaxLength(30)
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<Pizza>(entity =>
+            {
+                entity.ToTable("Pizza");
+
+                entity.Property(e => e.ToppingList)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Pizzas)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Pizza_Order");
             });
 
             modelBuilder.Entity<ToppingType>(entity =>
