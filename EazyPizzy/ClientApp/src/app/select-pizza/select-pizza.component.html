@@ -1,0 +1,75 @@
+<h2 id="tableLabel">Make your own Pizza!!!</h2>
+
+<div class="row">
+  <div class="col-8">
+    <ng-container *ngFor="let pizza of currentOrder.pizzaList; let i = index">
+      <div class="card grey">
+        <table class='table table-striped' aria-labelledby="tableLabel">
+          <div class="row justify-content-end">
+            <div class="col-sm-9">
+              Select toppings
+            </div>
+            <div class="col-sm-3 grey" style="float: right;">
+              <input type="checkbox" style="float: right; margin-top: 2%; height: 15px; width: 15px"
+                [(ngModel)]="pizza.isVeg" value="true">
+              <label style="float:right" for="html">Veg only</label>
+            </div>
+          </div>
+          <div class="row" style="margin: 0; height: 30%;">
+            <ng-container *ngFor="let item of pizza.toppingList;">
+              <div class="col-sm-4" style="height: 30px; padding-top: 5px" *ngIf="item.isNonVeg==false && pizza.isVeg"
+                [ngClass]="item.isNonVeg == false? 'border-green' : 'border-red'"><label>{{item.toppingName}}</label>
+                <input type="checkbox" style="float: right; margin-top: 2%; height: 15px; width: 15px"
+                  (click)="addToSelected(item, i)" [(ngModel)]="item.isSelected" value="true">
+              </div>
+              <div class="col-sm-4" style="height: 30px; padding-top: 5px" *ngIf="!pizza.isVeg"
+                [ngClass]="item.isNonVeg == false? 'border-green' : 'border-red'"><label>{{item.toppingName}}</label>
+                <input type="checkbox" style="float: right; margin-top: 2%; height: 15px; width: 15px"
+                  (click)="addToSelected(item, i)" [(ngModel)]="item.isSelected" value="true">
+              </div>
+            </ng-container>
+          </div>
+          <div class="row" style="padding-left: 10px; padding-right:10px;">
+            <div class="col-sm-4 wrapper">
+              <label style="padding: 5px;"><b>Quantity</b></label>
+              <button class="plusminus" (click)="handleMinus(i)">-</button>
+              <input type="number" class="num" value="1" [(ngModel)]="pizza.quantity" />
+              <button class="plusminus" (click)="handlePlus(i)">+</button>
+            </div>
+            <div class="col-sm-4 wrapper">
+              <a style="text-decoration: underline; color: rgb(133, 25, 8); cursor: pointer; float: right; padding-top:5px;"
+                *ngIf="currentOrder.pizzaList.length > 1" (click)="removeOrderItem(i)">Delete</a>
+            </div>
+            <div class="col-sm-4" style="float: right; height: 12px; width: 15vw;"
+              *ngIf="pizza.selectedToppingList.length > 0 && i+1 == currentOrder.pizzaList.length">
+              <a style="text-decoration: underline; color: darkgreen; cursor: pointer; float: right; padding-top:5px;"
+                (click)="addOrderItem()">Add another pizza</a>
+            </div>
+          </div>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-4">
+    <ng-container>
+      <div class="card">
+        <table class='table table-striped' aria-labelledby="tableLabel">
+          <div style="text-align: center;">
+            <h4> Your Order </h4>
+          </div>
+          <div *ngFor="let pizza of currentOrder.pizzaList; let i = index" style="padding-left: 10px;">
+            <ng-container *ngFor="let topping of pizza.selectedToppingList; let c = index">              
+              <label *ngIf="topping.isSelected == true && c == 0">{{i+1}}. Pizza with {{topping.toppingName}}</label>
+              <label *ngIf="topping.isSelected == true && c > 0">, {{topping.toppingName}}</label>
+            </ng-container>
+            <br><label *ngIf="pizza.selectedToppingList.length > 0" style="padding-left:60%"> Quantity - {{pizza.quantity}}</label>
+          </div>
+          <div style="text-align: center;" *ngIf="currentOrder.pizzaList[0].selectedToppingList.length > 0">
+            <button [disabled]="currentOrder.pizzaList[currentOrder.pizzaList.length - 1].selectedToppingList.length == 0"
+              style="border: none; border-radius: 2px;" (click)="submit()">Submit Order</button>
+          </div>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+</div>

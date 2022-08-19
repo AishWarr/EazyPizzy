@@ -1,0 +1,64 @@
+.green{
+    border-width: 5px;
+    border-color: lightgreen;
+}
+.grey{    
+    border-width: 5px;
+    border-color: lightgray;
+}
+
+.card{
+    min-width: inherit;
+    margin-bottom: 7px;
+}
+  
+.border {
+border-right: 1px solid black;
+}
+.border-red {
+    border: 1px solid red;
+    background-color: antiquewhite;
+}
+.border-green {
+    border: 1px solid green;
+    background-color: rgb(235, 250, 215);
+}
+input {
+    text-align: center;  
+    border: 1px solid #6C757D;
+  } 
+  
+  input[type="number"] {
+    -webkit-appearance: textfield !important;
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+    }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  
+    
+  .wrapper {
+    width: 20vw;
+    height: 40px;
+    padding: 2px;
+    display: flex;
+    border-radius: 2px;
+  }
+  
+  .plusminus {
+    border: none;
+    width: 5%;
+    background: white;
+    font-size: 20px;
+    color: #5f5fce;
+  }
+  
+  .num {
+    height: 100%;
+    width: 15%;
+    border: none;
+    font-size: 18px;
+  }
